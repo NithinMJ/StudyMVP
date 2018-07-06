@@ -2,7 +2,9 @@
     <string name="app_name">Study</string>
 
     <!-- Main -->
-    <string name="main_button_generate_number">Generate number</string>
-    <string name="main_text_generated_number">%1$d is %2$s</string>
+    <string name="main_button_generate_number">Generate Name</string>
+    <string name="main_text_generated_number">%2$s %2$s</string>
+    <string name="errorMessage">ERROR: Empty List</string>
+    <string name="errorException">ERROR: Exception Occurred</string>
 
 </resources>

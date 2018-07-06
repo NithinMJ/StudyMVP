@@ -14,9 +14,15 @@
         android:text="@string/main_button_generate_number" />
 
     <TextView
-        android:id="@+id/textViewGeneratedNumber"
+        android:id="@+id/emptyListNames"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="9 is odd" />
+        tools:text="Conan Ronan" />
+
+    <ListView
+        android:id="@+id/listViewNames"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
 </LinearLayout>

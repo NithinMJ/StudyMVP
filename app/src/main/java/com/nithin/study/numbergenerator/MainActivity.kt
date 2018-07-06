@@ -1,30 +1,52 @@
 package com.nithin.study.numbergenerator
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.nithin.study.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity :
         AppCompatActivity(),
-        NumberGeneratorContract.View {
+        ListGeneratorContract.View {
 
-    private val numberGeneratorPresenter: NumberGeneratorContract.Presenter = NumberGeneratorPresenter()
+    private val listGeneratorPresenter: ListGeneratorContract.Presenter = ListGeneratorPresenter(object : ListGeneratorApi {})
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        numberGeneratorPresenter.attachView(this)
-        buttonGenerateNumber.setOnClickListener {  numberGeneratorPresenter.generateNumberClicked() }
+        listGeneratorPresenter.attachView(this)
+        buttonGenerateNumber.setOnClickListener { listGeneratorPresenter.loadPeople() }
     }
 
     override fun onDestroy() {
-        numberGeneratorPresenter.detachView()
+        listGeneratorPresenter.detachView()
         super.onDestroy()
     }
 
-    override fun showNumber(number: Int, oddOrEven: String) {
-        textViewGeneratedNumber.text = getString(R.string.main_text_generated_number, number, oddOrEven)
+    override fun showPeople(names: List<Person>) {
+        emptyListNames.visibility = View.GONE
+        val adapter = ListNamesAdapter(this@MainActivity, names)
+        listViewNames.adapter = adapter
+        listViewNames.visibility = View.VISIBLE
+
     }
+
+    override fun showNoResults() {
+        listViewNames.visibility = View.GONE
+        emptyListNames.text = getString(R.string.errorMessage)
+        emptyListNames.visibility = View.VISIBLE
+    }
+
+    override fun showException() {
+        listViewNames.visibility = View.GONE
+        emptyListNames.visibility = View.GONE
+        AlertDialog.Builder(this)
+                .setMessage(R.string.errorException)
+                .show()
+    }
+
+
 }
